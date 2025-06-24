@@ -2,6 +2,8 @@ import org.springframework.boot.web.server.Cookie;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Objects;
+
 public class Application {
 
     private static final String URL="http://94.198.50.185:7081/api/users";
@@ -34,7 +36,7 @@ public class Application {
         ResponseEntity<String> deleteResponse = restTemplate.exchange(URL + "/3", HttpMethod.DELETE, delete, String.class);
         System.out.println("Delete user: " + deleteResponse.getBody());
 
-        String concated = addResponse.getBody().concat(updateResponse.getBody().concat(deleteResponse.getBody()));
+        String concated = Objects.requireNonNull(addResponse.getBody()).concat(Objects.requireNonNull(updateResponse.getBody()).concat(Objects.requireNonNull(deleteResponse.getBody())));
         System.out.println(concated);
     }
 }
